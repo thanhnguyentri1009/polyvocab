@@ -15,7 +15,7 @@ import { CHINESE_LEVELS } from "../../data/chinese/levels";
 import { CHINESE_VOCABULARY } from "../../data/chinese/vocabulary";
 import { CHINESE_SENTENCES } from "../../data/chinese/sentences";
 import type { HskLevel } from "../../data/chinese/types";
-import type { SentenceCategory, SentenceDifficulty } from "../../data/sentences/categories";
+import { SENTENCE_DIFFICULTIES, type SentenceCategory, type SentenceDifficulty } from "../../data/sentences/categories";
 import {
   loadChineseProgress,
   pushChineseRemoteProgress,
@@ -68,7 +68,7 @@ export default function ChineseApp({ syncCode }: ChineseAppProps) {
   const sentenceDifficulty = section === "sentences" ? (segments[2] as SentenceDifficulty | undefined) : undefined;
   const validSentenceCats = ["daily_life", "nature", "food", "work", "travel", "family"] as const;
   const validCat = sentenceCategory && (validSentenceCats as readonly string[]).includes(sentenceCategory) ? sentenceCategory as SentenceCategory : null;
-  const validDiff = sentenceDifficulty === "basic" || sentenceDifficulty === "advanced" ? sentenceDifficulty : null;
+  const validDiff = sentenceDifficulty && (SENTENCE_DIFFICULTIES as string[]).includes(sentenceDifficulty) ? sentenceDifficulty : null;
 
   const stage: ChineseStage =
     section === "beginner"

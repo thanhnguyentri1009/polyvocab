@@ -21,6 +21,69 @@ export type ChineseSentenceData = Record<SentenceCategory, Record<SentenceDiffic
 
 export const CHINESE_SENTENCES: ChineseSentenceData = {
   daily_life: {
+    starter: [
+      {
+        id: 'zh-dl-s-01',
+        zh: '你好！',
+        pinyin: 'Nǐ hǎo!',
+        meaning: 'Hello!',
+        vi: 'Xin chào!',
+        components: [
+          { text: '你', pinyin: 'nǐ', meaning: 'you', vi: 'bạn', type: 'subject' },
+          { text: '好', pinyin: 'hǎo', meaning: 'good, well', vi: 'tốt, khỏe', type: 'adjective' },
+        ],
+      },
+      {
+        id: 'zh-dl-s-02',
+        zh: '我是学生。',
+        pinyin: 'Wǒ shì xuésheng.',
+        meaning: 'I am a student.',
+        vi: 'Tôi là học sinh.',
+        components: [
+          { text: '我', pinyin: 'wǒ', meaning: 'I', vi: 'tôi', type: 'subject' },
+          { text: '是', pinyin: 'shì', meaning: 'to be', vi: 'là', type: 'verb' },
+          { text: '学生', pinyin: 'xuésheng', meaning: 'student', vi: 'học sinh', type: 'object' },
+        ],
+      },
+      {
+        id: 'zh-dl-s-03',
+        zh: '你叫什么名字？',
+        pinyin: 'Nǐ jiào shénme míngzi?',
+        meaning: "What's your name?",
+        vi: 'Bạn tên là gì?',
+        components: [
+          { text: '你', pinyin: 'nǐ', meaning: 'you', vi: 'bạn', type: 'subject' },
+          { text: '叫', pinyin: 'jiào', meaning: 'to be called', vi: 'tên là', type: 'verb' },
+          { text: '什么', pinyin: 'shénme', meaning: 'what', vi: 'gì', type: 'other' },
+          { text: '名字', pinyin: 'míngzi', meaning: 'name', vi: 'tên', type: 'object' },
+        ],
+      },
+      {
+        id: 'zh-dl-s-04',
+        zh: '我很好，谢谢。',
+        pinyin: 'Wǒ hěn hǎo, xièxie.',
+        meaning: "I'm fine, thank you.",
+        vi: 'Tôi khỏe, cảm ơn.',
+        components: [
+          { text: '我', pinyin: 'wǒ', meaning: 'I', vi: 'tôi', type: 'subject' },
+          { text: '很', pinyin: 'hěn', meaning: 'very', vi: 'rất', type: 'adverb' },
+          { text: '好', pinyin: 'hǎo', meaning: 'good, well', vi: 'khỏe', type: 'adjective' },
+          { text: '谢谢', pinyin: 'xièxie', meaning: 'thank you', vi: 'cảm ơn', type: 'other' },
+        ],
+      },
+      {
+        id: 'zh-dl-s-05',
+        zh: '现在几点？',
+        pinyin: 'Xiànzài jǐ diǎn?',
+        meaning: 'What time is it now?',
+        vi: 'Bây giờ là mấy giờ?',
+        components: [
+          { text: '现在', pinyin: 'xiànzài', meaning: 'now', vi: 'bây giờ', type: 'time' },
+          { text: '几', pinyin: 'jǐ', meaning: 'how many', vi: 'mấy', type: 'other' },
+          { text: '点', pinyin: 'diǎn', meaning: "o'clock", vi: 'giờ', type: 'other' },
+        ],
+      },
+    ],
     basic: [
       {
         id: 'zh-dl-b-01',
@@ -167,6 +230,67 @@ export const CHINESE_SENTENCES: ChineseSentenceData = {
   },
 
   nature: {
+    starter: [
+      {
+        id: 'zh-na-s-01',
+        zh: '今天很热。',
+        pinyin: 'Jīntiān hěn rè.',
+        meaning: 'It is hot today.',
+        vi: 'Hôm nay rất nóng.',
+        components: [
+          { text: '今天', pinyin: 'jīntiān', meaning: 'today', vi: 'hôm nay', type: 'time' },
+          { text: '很', pinyin: 'hěn', meaning: 'very', vi: 'rất', type: 'adverb' },
+          { text: '热', pinyin: 'rè', meaning: 'hot', vi: 'nóng', type: 'adjective' },
+        ],
+      },
+      {
+        id: 'zh-na-s-02',
+        zh: '今天很冷。',
+        pinyin: 'Jīntiān hěn lěng.',
+        meaning: 'It is cold today.',
+        vi: 'Hôm nay rất lạnh.',
+        components: [
+          { text: '今天', pinyin: 'jīntiān', meaning: 'today', vi: 'hôm nay', type: 'time' },
+          { text: '很', pinyin: 'hěn', meaning: 'very', vi: 'rất', type: 'adverb' },
+          { text: '冷', pinyin: 'lěng', meaning: 'cold', vi: 'lạnh', type: 'adjective' },
+        ],
+      },
+      {
+        id: 'zh-na-s-03',
+        zh: '下雨了。',
+        pinyin: 'Xià yǔ le.',
+        meaning: "It's raining.",
+        vi: 'Trời mưa rồi.',
+        components: [
+          { text: '下雨', pinyin: 'xià yǔ', meaning: 'to rain', vi: 'mưa', type: 'verb' },
+          { text: '了', pinyin: 'le', meaning: 'change-of-state particle', vi: 'rồi', type: 'particle' },
+        ],
+      },
+      {
+        id: 'zh-na-s-04',
+        zh: '天很蓝。',
+        pinyin: 'Tiān hěn lán.',
+        meaning: 'The sky is very blue.',
+        vi: 'Bầu trời rất xanh.',
+        components: [
+          { text: '天', pinyin: 'tiān', meaning: 'sky', vi: 'bầu trời', type: 'subject' },
+          { text: '很', pinyin: 'hěn', meaning: 'very', vi: 'rất', type: 'adverb' },
+          { text: '蓝', pinyin: 'lán', meaning: 'blue', vi: 'xanh lam', type: 'adjective' },
+        ],
+      },
+      {
+        id: 'zh-na-s-05',
+        zh: '我喜欢花。',
+        pinyin: 'Wǒ xǐhuan huā.',
+        meaning: 'I like flowers.',
+        vi: 'Tôi thích hoa.',
+        components: [
+          { text: '我', pinyin: 'wǒ', meaning: 'I', vi: 'tôi', type: 'subject' },
+          { text: '喜欢', pinyin: 'xǐhuan', meaning: 'to like', vi: 'thích', type: 'verb' },
+          { text: '花', pinyin: 'huā', meaning: 'flower', vi: 'hoa', type: 'object' },
+        ],
+      },
+    ],
     basic: [
       {
         id: 'zh-na-b-01',
@@ -305,6 +429,68 @@ export const CHINESE_SENTENCES: ChineseSentenceData = {
   },
 
   food: {
+    starter: [
+      {
+        id: 'zh-fo-s-01',
+        zh: '我吃米饭。',
+        pinyin: 'Wǒ chī mǐfàn.',
+        meaning: 'I eat rice.',
+        vi: 'Tôi ăn cơm.',
+        components: [
+          { text: '我', pinyin: 'wǒ', meaning: 'I', vi: 'tôi', type: 'subject' },
+          { text: '吃', pinyin: 'chī', meaning: 'to eat', vi: 'ăn', type: 'verb' },
+          { text: '米饭', pinyin: 'mǐfàn', meaning: 'cooked rice', vi: 'cơm', type: 'object' },
+        ],
+      },
+      {
+        id: 'zh-fo-s-02',
+        zh: '我喝水。',
+        pinyin: 'Wǒ hē shuǐ.',
+        meaning: 'I drink water.',
+        vi: 'Tôi uống nước.',
+        components: [
+          { text: '我', pinyin: 'wǒ', meaning: 'I', vi: 'tôi', type: 'subject' },
+          { text: '喝', pinyin: 'hē', meaning: 'to drink', vi: 'uống', type: 'verb' },
+          { text: '水', pinyin: 'shuǐ', meaning: 'water', vi: 'nước', type: 'object' },
+        ],
+      },
+      {
+        id: 'zh-fo-s-03',
+        zh: '你喝茶吗？',
+        pinyin: 'Nǐ hē chá ma?',
+        meaning: 'Do you drink tea?',
+        vi: 'Bạn uống trà không?',
+        components: [
+          { text: '你', pinyin: 'nǐ', meaning: 'you', vi: 'bạn', type: 'subject' },
+          { text: '喝', pinyin: 'hē', meaning: 'to drink', vi: 'uống', type: 'verb' },
+          { text: '茶', pinyin: 'chá', meaning: 'tea', vi: 'trà', type: 'object' },
+          { text: '吗', pinyin: 'ma', meaning: 'question particle', vi: 'không? (trợ từ hỏi)', type: 'particle' },
+        ],
+      },
+      {
+        id: 'zh-fo-s-04',
+        zh: '这个很好吃。',
+        pinyin: 'Zhège hěn hǎochī.',
+        meaning: 'This is delicious.',
+        vi: 'Cái này rất ngon.',
+        components: [
+          { text: '这个', pinyin: 'zhège', meaning: 'this (one)', vi: 'cái này', type: 'subject' },
+          { text: '很', pinyin: 'hěn', meaning: 'very', vi: 'rất', type: 'adverb' },
+          { text: '好吃', pinyin: 'hǎochī', meaning: 'delicious', vi: 'ngon', type: 'adjective' },
+        ],
+      },
+      {
+        id: 'zh-fo-s-05',
+        zh: '多少钱？',
+        pinyin: 'Duōshao qián?',
+        meaning: 'How much is it?',
+        vi: 'Bao nhiêu tiền?',
+        components: [
+          { text: '多少', pinyin: 'duōshao', meaning: 'how much', vi: 'bao nhiêu', type: 'other' },
+          { text: '钱', pinyin: 'qián', meaning: 'money', vi: 'tiền', type: 'object' },
+        ],
+      },
+    ],
     basic: [
       {
         id: 'zh-fo-b-01',
@@ -447,6 +633,70 @@ export const CHINESE_SENTENCES: ChineseSentenceData = {
   },
 
   work: {
+    starter: [
+      {
+        id: 'zh-wo-s-01',
+        zh: '我是老师。',
+        pinyin: 'Wǒ shì lǎoshī.',
+        meaning: 'I am a teacher.',
+        vi: 'Tôi là giáo viên.',
+        components: [
+          { text: '我', pinyin: 'wǒ', meaning: 'I', vi: 'tôi', type: 'subject' },
+          { text: '是', pinyin: 'shì', meaning: 'to be', vi: 'là', type: 'verb' },
+          { text: '老师', pinyin: 'lǎoshī', meaning: 'teacher', vi: 'giáo viên', type: 'object' },
+        ],
+      },
+      {
+        id: 'zh-wo-s-02',
+        zh: '我学习汉语。',
+        pinyin: 'Wǒ xuéxí Hànyǔ.',
+        meaning: 'I study Chinese.',
+        vi: 'Tôi học tiếng Trung.',
+        components: [
+          { text: '我', pinyin: 'wǒ', meaning: 'I', vi: 'tôi', type: 'subject' },
+          { text: '学习', pinyin: 'xuéxí', meaning: 'to study', vi: 'học', type: 'verb' },
+          { text: '汉语', pinyin: 'Hànyǔ', meaning: 'Chinese (language)', vi: 'tiếng Trung', type: 'object' },
+        ],
+      },
+      {
+        id: 'zh-wo-s-03',
+        zh: '我去学校。',
+        pinyin: 'Wǒ qù xuéxiào.',
+        meaning: 'I go to school.',
+        vi: 'Tôi đi học.',
+        components: [
+          { text: '我', pinyin: 'wǒ', meaning: 'I', vi: 'tôi', type: 'subject' },
+          { text: '去', pinyin: 'qù', meaning: 'to go', vi: 'đi', type: 'verb' },
+          { text: '学校', pinyin: 'xuéxiào', meaning: 'school', vi: 'trường học', type: 'place' },
+        ],
+      },
+      {
+        id: 'zh-wo-s-04',
+        zh: '他是我的老师。',
+        pinyin: 'Tā shì wǒ de lǎoshī.',
+        meaning: 'He is my teacher.',
+        vi: 'Anh ấy là thầy giáo của tôi.',
+        components: [
+          { text: '他', pinyin: 'tā', meaning: 'he', vi: 'anh ấy', type: 'subject' },
+          { text: '是', pinyin: 'shì', meaning: 'to be', vi: 'là', type: 'verb' },
+          { text: '我的', pinyin: 'wǒ de', meaning: 'my', vi: 'của tôi', type: 'other' },
+          { text: '老师', pinyin: 'lǎoshī', meaning: 'teacher', vi: 'thầy giáo', type: 'object' },
+        ],
+      },
+      {
+        id: 'zh-wo-s-05',
+        zh: '我会说汉语。',
+        pinyin: 'Wǒ huì shuō Hànyǔ.',
+        meaning: 'I can speak Chinese.',
+        vi: 'Tôi biết nói tiếng Trung.',
+        components: [
+          { text: '我', pinyin: 'wǒ', meaning: 'I', vi: 'tôi', type: 'subject' },
+          { text: '会', pinyin: 'huì', meaning: 'can (know how to)', vi: 'biết', type: 'verb' },
+          { text: '说', pinyin: 'shuō', meaning: 'to speak', vi: 'nói', type: 'verb' },
+          { text: '汉语', pinyin: 'Hànyǔ', meaning: 'Chinese (language)', vi: 'tiếng Trung', type: 'object' },
+        ],
+      },
+    ],
     basic: [
       {
         id: 'zh-wo-b-01',
@@ -586,6 +836,68 @@ export const CHINESE_SENTENCES: ChineseSentenceData = {
   },
 
   travel: {
+    starter: [
+      {
+        id: 'zh-tr-s-01',
+        zh: '你去哪里？',
+        pinyin: 'Nǐ qù nǎlǐ?',
+        meaning: 'Where are you going?',
+        vi: 'Bạn đi đâu?',
+        components: [
+          { text: '你', pinyin: 'nǐ', meaning: 'you', vi: 'bạn', type: 'subject' },
+          { text: '去', pinyin: 'qù', meaning: 'to go', vi: 'đi', type: 'verb' },
+          { text: '哪里', pinyin: 'nǎlǐ', meaning: 'where', vi: 'đâu', type: 'place' },
+        ],
+      },
+      {
+        id: 'zh-tr-s-02',
+        zh: '我想去中国。',
+        pinyin: 'Wǒ xiǎng qù Zhōngguó.',
+        meaning: 'I want to go to China.',
+        vi: 'Tôi muốn đi Trung Quốc.',
+        components: [
+          { text: '我', pinyin: 'wǒ', meaning: 'I', vi: 'tôi', type: 'subject' },
+          { text: '想', pinyin: 'xiǎng', meaning: 'to want to', vi: 'muốn', type: 'verb' },
+          { text: '去', pinyin: 'qù', meaning: 'to go', vi: 'đi', type: 'verb' },
+          { text: '中国', pinyin: 'Zhōngguó', meaning: 'China', vi: 'Trung Quốc', type: 'place' },
+        ],
+      },
+      {
+        id: 'zh-tr-s-03',
+        zh: '我在这里。',
+        pinyin: 'Wǒ zài zhèlǐ.',
+        meaning: 'I am here.',
+        vi: 'Tôi ở đây.',
+        components: [
+          { text: '我', pinyin: 'wǒ', meaning: 'I', vi: 'tôi', type: 'subject' },
+          { text: '在', pinyin: 'zài', meaning: 'to be at', vi: 'ở', type: 'verb' },
+          { text: '这里', pinyin: 'zhèlǐ', meaning: 'here', vi: 'đây', type: 'place' },
+        ],
+      },
+      {
+        id: 'zh-tr-s-04',
+        zh: '这是什么？',
+        pinyin: 'Zhè shì shénme?',
+        meaning: 'What is this?',
+        vi: 'Đây là cái gì?',
+        components: [
+          { text: '这', pinyin: 'zhè', meaning: 'this', vi: 'đây', type: 'subject' },
+          { text: '是', pinyin: 'shì', meaning: 'to be', vi: 'là', type: 'verb' },
+          { text: '什么', pinyin: 'shénme', meaning: 'what', vi: 'cái gì', type: 'object' },
+        ],
+      },
+      {
+        id: 'zh-tr-s-05',
+        zh: '明天见！',
+        pinyin: 'Míngtiān jiàn!',
+        meaning: 'See you tomorrow!',
+        vi: 'Mai gặp lại!',
+        components: [
+          { text: '明天', pinyin: 'míngtiān', meaning: 'tomorrow', vi: 'ngày mai', type: 'time' },
+          { text: '见', pinyin: 'jiàn', meaning: 'to see, to meet', vi: 'gặp', type: 'verb' },
+        ],
+      },
+    ],
     basic: [
       {
         id: 'zh-tr-b-01',
@@ -730,6 +1042,71 @@ export const CHINESE_SENTENCES: ChineseSentenceData = {
   },
 
   family: {
+    starter: [
+      {
+        id: 'zh-fa-s-01',
+        zh: '这是我爸爸。',
+        pinyin: 'Zhè shì wǒ bàba.',
+        meaning: 'This is my dad.',
+        vi: 'Đây là bố tôi.',
+        components: [
+          { text: '这', pinyin: 'zhè', meaning: 'this', vi: 'đây', type: 'subject' },
+          { text: '是', pinyin: 'shì', meaning: 'to be', vi: 'là', type: 'verb' },
+          { text: '我', pinyin: 'wǒ', meaning: 'my', vi: 'của tôi', type: 'other' },
+          { text: '爸爸', pinyin: 'bàba', meaning: 'dad', vi: 'bố', type: 'object' },
+        ],
+      },
+      {
+        id: 'zh-fa-s-02',
+        zh: '我爱妈妈。',
+        pinyin: 'Wǒ ài māma.',
+        meaning: 'I love my mom.',
+        vi: 'Tôi yêu mẹ.',
+        components: [
+          { text: '我', pinyin: 'wǒ', meaning: 'I', vi: 'tôi', type: 'subject' },
+          { text: '爱', pinyin: 'ài', meaning: 'to love', vi: 'yêu', type: 'verb' },
+          { text: '妈妈', pinyin: 'māma', meaning: 'mom', vi: 'mẹ', type: 'object' },
+        ],
+      },
+      {
+        id: 'zh-fa-s-03',
+        zh: '我有一个哥哥。',
+        pinyin: 'Wǒ yǒu yí ge gēge.',
+        meaning: 'I have an older brother.',
+        vi: 'Tôi có một anh trai.',
+        components: [
+          { text: '我', pinyin: 'wǒ', meaning: 'I', vi: 'tôi', type: 'subject' },
+          { text: '有', pinyin: 'yǒu', meaning: 'to have', vi: 'có', type: 'verb' },
+          { text: '一个', pinyin: 'yí ge', meaning: 'one (measure word)', vi: 'một', type: 'other' },
+          { text: '哥哥', pinyin: 'gēge', meaning: 'older brother', vi: 'anh trai', type: 'object' },
+        ],
+      },
+      {
+        id: 'zh-fa-s-04',
+        zh: '她是我妹妹。',
+        pinyin: 'Tā shì wǒ mèimei.',
+        meaning: 'She is my younger sister.',
+        vi: 'Cô ấy là em gái tôi.',
+        components: [
+          { text: '她', pinyin: 'tā', meaning: 'she', vi: 'cô ấy', type: 'subject' },
+          { text: '是', pinyin: 'shì', meaning: 'to be', vi: 'là', type: 'verb' },
+          { text: '我', pinyin: 'wǒ', meaning: 'my', vi: 'của tôi', type: 'other' },
+          { text: '妹妹', pinyin: 'mèimei', meaning: 'younger sister', vi: 'em gái', type: 'object' },
+        ],
+      },
+      {
+        id: 'zh-fa-s-05',
+        zh: '我们是朋友。',
+        pinyin: 'Wǒmen shì péngyou.',
+        meaning: 'We are friends.',
+        vi: 'Chúng tôi là bạn.',
+        components: [
+          { text: '我们', pinyin: 'wǒmen', meaning: 'we', vi: 'chúng tôi', type: 'subject' },
+          { text: '是', pinyin: 'shì', meaning: 'to be', vi: 'là', type: 'verb' },
+          { text: '朋友', pinyin: 'péngyou', meaning: 'friend', vi: 'bạn', type: 'object' },
+        ],
+      },
+    ],
     basic: [
       {
         id: 'zh-fa-b-01',

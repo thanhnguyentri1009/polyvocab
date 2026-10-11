@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { JapaneseSentence } from '../../data/japanese/sentences'
-import { COMPONENT_COLORS, COMPONENT_LABEL_EN, COMPONENT_LABEL_VI, SENTENCE_CATEGORIES, type SentenceCategory, type SentenceDifficulty } from '../../data/sentences/categories'
+import { COMPONENT_COLORS, COMPONENT_LABEL_EN, COMPONENT_LABEL_VI, DIFFICULTY_COLORS, SENTENCE_CATEGORIES, type SentenceCategory, type SentenceDifficulty } from '../../data/sentences/categories'
 import { speak } from '../../utils/speech'
 
 interface JapaneseSentenceLearnProps {
@@ -25,8 +25,7 @@ export default function JapaneseSentenceLearn({
 
   const sentence = sentences[index]
   const catInfo = SENTENCE_CATEGORIES.find(c => c.key === category)
-  const isBasic = difficulty === 'basic'
-  const diffColor = isBasic ? '#4caf7d' : '#7c5cbf'
+  const diffColor = DIFFICULTY_COLORS[difficulty]
   const diffLabel = t(`japanese.sentences.${difficulty}`)
 
   const handlePrev = () => {

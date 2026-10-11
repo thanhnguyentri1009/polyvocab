@@ -16,7 +16,7 @@ import { JAPANESE_LEVELS } from "../../data/japanese/levels";
 import { JAPANESE_VOCABULARY } from "../../data/japanese/vocabulary";
 import { JAPANESE_SENTENCES } from "../../data/japanese/sentences";
 import type { JlptLevel } from "../../data/japanese/types";
-import type { SentenceCategory, SentenceDifficulty } from "../../data/sentences/categories";
+import { SENTENCE_DIFFICULTIES, type SentenceCategory, type SentenceDifficulty } from "../../data/sentences/categories";
 import {
   loadJapaneseProgress,
   pushJapaneseRemoteProgress,
@@ -69,7 +69,7 @@ export default function JapaneseApp({ syncCode }: JapaneseAppProps) {
   const sentenceDifficulty = section === "sentences" ? (segments[2] as SentenceDifficulty | undefined) : undefined;
   const validSentenceCats = ["daily_life", "nature", "food", "work", "travel", "family"] as const;
   const validCat = sentenceCategory && (validSentenceCats as readonly string[]).includes(sentenceCategory) ? sentenceCategory as SentenceCategory : null;
-  const validDiff = sentenceDifficulty === "basic" || sentenceDifficulty === "advanced" ? sentenceDifficulty : null;
+  const validDiff = sentenceDifficulty && (SENTENCE_DIFFICULTIES as string[]).includes(sentenceDifficulty) ? sentenceDifficulty : null;
 
   const stage: JapaneseStage =
     section === "beginner"

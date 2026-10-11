@@ -15,7 +15,7 @@ export default function SpeakingLevelSelect({ levels, onSelect }: Props) {
       <div className="choice-grid">
         {levels.map((level) => (
           <button key={level.key} type="button" className="choice" onClick={() => onSelect(level.key)}>
-            <span className="choice-code">{level.label}</span>
+            <span className={level.label.length <= 3 ? "choice-code" : "choice-title"}>{level.label}</span>
             <span className="choice-sub">{level.description}</span>
             <span className="choice-meta">
               {t("speakingLevelSelect.sentencesCount", { count: level.sentences.length })}

@@ -6,7 +6,15 @@ export type SentenceCategory =
   | 'travel'
   | 'family'
 
-export type SentenceDifficulty = 'basic' | 'advanced'
+export type SentenceDifficulty = 'starter' | 'basic' | 'advanced'
+
+export const SENTENCE_DIFFICULTIES: SentenceDifficulty[] = ['starter', 'basic', 'advanced']
+
+export const DIFFICULTY_COLORS: Record<SentenceDifficulty, string> = {
+  starter: '#d48a1c',
+  basic: '#4caf7d',
+  advanced: '#7c5cbf',
+}
 
 export type SentenceComponentType =
   | 'subject'

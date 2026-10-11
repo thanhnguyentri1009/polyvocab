@@ -22,6 +22,75 @@ export type JapaneseSentenceData = Record<SentenceCategory, Record<SentenceDiffi
 
 export const JAPANESE_SENTENCES: JapaneseSentenceData = {
   daily_life: {
+    starter: [
+      {
+        id: 'jp-dl-s-01',
+        jp: 'こんにちは。',
+        reading: 'こんにちは。',
+        romaji: 'Konnichiwa.',
+        meaning: 'Hello.',
+        vi: 'Xin chào.',
+        components: [
+          { text: 'こんにちは', reading: 'こんにちは', meaning: 'hello', vi: 'xin chào', type: 'other' },
+        ],
+      },
+      {
+        id: 'jp-dl-s-02',
+        jp: '私は学生です。',
+        reading: 'わたしはがくせいです。',
+        romaji: 'Watashi wa gakusei desu.',
+        meaning: 'I am a student.',
+        vi: 'Tôi là học sinh.',
+        components: [
+          { text: '私', reading: 'わたし', meaning: 'I', vi: 'tôi', type: 'subject' },
+          { text: 'は', reading: 'は', meaning: 'topic marker', vi: 'trợ từ chủ đề', type: 'particle' },
+          { text: '学生', reading: 'がくせい', meaning: 'student', vi: 'học sinh', type: 'object' },
+          { text: 'です', reading: 'です', meaning: 'is (polite)', vi: 'là (lịch sự)', type: 'verb' },
+        ],
+      },
+      {
+        id: 'jp-dl-s-03',
+        jp: 'お名前は何ですか。',
+        reading: 'おなまえはなんですか。',
+        romaji: 'O-namae wa nan desu ka.',
+        meaning: "What's your name?",
+        vi: 'Tên bạn là gì?',
+        components: [
+          { text: 'お名前', reading: 'おなまえ', meaning: 'name (polite)', vi: 'tên', type: 'subject' },
+          { text: 'は', reading: 'は', meaning: 'topic marker', vi: 'trợ từ chủ đề', type: 'particle' },
+          { text: '何', reading: 'なん', meaning: 'what', vi: 'gì', type: 'other' },
+          { text: 'です', reading: 'です', meaning: 'is (polite)', vi: 'là (lịch sự)', type: 'verb' },
+          { text: 'か', reading: 'か', meaning: 'question particle', vi: 'trợ từ nghi vấn', type: 'particle' },
+        ],
+      },
+      {
+        id: 'jp-dl-s-04',
+        jp: 'はじめまして、アンです。',
+        reading: 'はじめまして、アンです。',
+        romaji: 'Hajimemashite, An desu.',
+        meaning: "Nice to meet you, I'm An.",
+        vi: 'Rất vui được gặp bạn, tôi là An.',
+        components: [
+          { text: 'はじめまして', reading: 'はじめまして', meaning: 'nice to meet you', vi: 'rất vui được gặp', type: 'other' },
+          { text: 'アン', reading: 'アン', meaning: 'An (name)', vi: 'An (tên)', type: 'subject' },
+          { text: 'です', reading: 'です', meaning: 'is (polite)', vi: 'là (lịch sự)', type: 'verb' },
+        ],
+      },
+      {
+        id: 'jp-dl-s-05',
+        jp: '今何時ですか。',
+        reading: 'いまなんじですか。',
+        romaji: 'Ima nan-ji desu ka.',
+        meaning: 'What time is it now?',
+        vi: 'Bây giờ là mấy giờ?',
+        components: [
+          { text: '今', reading: 'いま', meaning: 'now', vi: 'bây giờ', type: 'time' },
+          { text: '何時', reading: 'なんじ', meaning: 'what time', vi: 'mấy giờ', type: 'other' },
+          { text: 'です', reading: 'です', meaning: 'is (polite)', vi: 'là (lịch sự)', type: 'verb' },
+          { text: 'か', reading: 'か', meaning: 'question particle', vi: 'trợ từ nghi vấn', type: 'particle' },
+        ],
+      },
+    ],
     basic: [
       {
         id: 'jp-dl-b-01',
@@ -188,6 +257,76 @@ export const JAPANESE_SENTENCES: JapaneseSentenceData = {
   },
 
   nature: {
+    starter: [
+      {
+        id: 'jp-na-s-01',
+        jp: '今日は暑いです。',
+        reading: 'きょうはあついです。',
+        romaji: 'Kyō wa atsui desu.',
+        meaning: "It's hot today.",
+        vi: 'Hôm nay nóng.',
+        components: [
+          { text: '今日', reading: 'きょう', meaning: 'today', vi: 'hôm nay', type: 'time' },
+          { text: 'は', reading: 'は', meaning: 'topic marker', vi: 'trợ từ chủ đề', type: 'particle' },
+          { text: '暑い', reading: 'あつい', meaning: 'hot', vi: 'nóng', type: 'adjective' },
+          { text: 'です', reading: 'です', meaning: 'is (polite)', vi: 'là (lịch sự)', type: 'verb' },
+        ],
+      },
+      {
+        id: 'jp-na-s-02',
+        jp: '今日は寒いです。',
+        reading: 'きょうはさむいです。',
+        romaji: 'Kyō wa samui desu.',
+        meaning: "It's cold today.",
+        vi: 'Hôm nay lạnh.',
+        components: [
+          { text: '今日', reading: 'きょう', meaning: 'today', vi: 'hôm nay', type: 'time' },
+          { text: 'は', reading: 'は', meaning: 'topic marker', vi: 'trợ từ chủ đề', type: 'particle' },
+          { text: '寒い', reading: 'さむい', meaning: 'cold', vi: 'lạnh', type: 'adjective' },
+          { text: 'です', reading: 'です', meaning: 'is (polite)', vi: 'là (lịch sự)', type: 'verb' },
+        ],
+      },
+      {
+        id: 'jp-na-s-03',
+        jp: '雨です。',
+        reading: 'あめです。',
+        romaji: 'Ame desu.',
+        meaning: "It's raining.",
+        vi: 'Trời mưa.',
+        components: [
+          { text: '雨', reading: 'あめ', meaning: 'rain', vi: 'mưa', type: 'subject' },
+          { text: 'です', reading: 'です', meaning: 'is (polite)', vi: 'là (lịch sự)', type: 'verb' },
+        ],
+      },
+      {
+        id: 'jp-na-s-04',
+        jp: '空は青いです。',
+        reading: 'そらはあおいです。',
+        romaji: 'Sora wa aoi desu.',
+        meaning: 'The sky is blue.',
+        vi: 'Bầu trời màu xanh.',
+        components: [
+          { text: '空', reading: 'そら', meaning: 'sky', vi: 'bầu trời', type: 'subject' },
+          { text: 'は', reading: 'は', meaning: 'topic marker', vi: 'trợ từ chủ đề', type: 'particle' },
+          { text: '青い', reading: 'あおい', meaning: 'blue', vi: 'xanh', type: 'adjective' },
+          { text: 'です', reading: 'です', meaning: 'is (polite)', vi: 'là (lịch sự)', type: 'verb' },
+        ],
+      },
+      {
+        id: 'jp-na-s-05',
+        jp: '花がきれいです。',
+        reading: 'はながきれいです。',
+        romaji: 'Hana ga kirei desu.',
+        meaning: 'The flowers are pretty.',
+        vi: 'Hoa đẹp quá.',
+        components: [
+          { text: '花', reading: 'はな', meaning: 'flower', vi: 'hoa', type: 'subject' },
+          { text: 'が', reading: 'が', meaning: 'subject marker', vi: 'trợ từ chủ ngữ', type: 'particle' },
+          { text: 'きれい', reading: 'きれい', meaning: 'pretty', vi: 'đẹp', type: 'adjective' },
+          { text: 'です', reading: 'です', meaning: 'is (polite)', vi: 'là (lịch sự)', type: 'verb' },
+        ],
+      },
+    ],
     basic: [
       {
         id: 'jp-na-b-01',
@@ -345,6 +484,74 @@ export const JAPANESE_SENTENCES: JapaneseSentenceData = {
   },
 
   food: {
+    starter: [
+      {
+        id: 'jp-fo-s-01',
+        jp: 'ご飯を食べます。',
+        reading: 'ごはんをたべます。',
+        romaji: 'Gohan wo tabemasu.',
+        meaning: 'I eat rice.',
+        vi: 'Tôi ăn cơm.',
+        components: [
+          { text: 'ご飯', reading: 'ごはん', meaning: 'rice, meal', vi: 'cơm', type: 'object' },
+          { text: 'を', reading: 'を', meaning: 'object marker', vi: 'trợ từ tân ngữ', type: 'particle' },
+          { text: '食べます', reading: 'たべます', meaning: 'eat', vi: 'ăn', type: 'verb' },
+        ],
+      },
+      {
+        id: 'jp-fo-s-02',
+        jp: '水を飲みます。',
+        reading: 'みずをのみます。',
+        romaji: 'Mizu wo nomimasu.',
+        meaning: 'I drink water.',
+        vi: 'Tôi uống nước.',
+        components: [
+          { text: '水', reading: 'みず', meaning: 'water', vi: 'nước', type: 'object' },
+          { text: 'を', reading: 'を', meaning: 'object marker', vi: 'trợ từ tân ngữ', type: 'particle' },
+          { text: '飲みます', reading: 'のみます', meaning: 'drink', vi: 'uống', type: 'verb' },
+        ],
+      },
+      {
+        id: 'jp-fo-s-03',
+        jp: 'おいしいです。',
+        reading: 'おいしいです。',
+        romaji: 'Oishii desu.',
+        meaning: "It's delicious.",
+        vi: 'Ngon quá.',
+        components: [
+          { text: 'おいしい', reading: 'おいしい', meaning: 'delicious', vi: 'ngon', type: 'adjective' },
+          { text: 'です', reading: 'です', meaning: 'is (polite)', vi: 'là (lịch sự)', type: 'verb' },
+        ],
+      },
+      {
+        id: 'jp-fo-s-04',
+        jp: 'お茶をください。',
+        reading: 'おちゃをください。',
+        romaji: 'O-cha wo kudasai.',
+        meaning: 'Tea, please.',
+        vi: 'Cho tôi trà.',
+        components: [
+          { text: 'お茶', reading: 'おちゃ', meaning: 'tea', vi: 'trà', type: 'object' },
+          { text: 'を', reading: 'を', meaning: 'object marker', vi: 'trợ từ tân ngữ', type: 'particle' },
+          { text: 'ください', reading: 'ください', meaning: 'please give me', vi: 'xin cho', type: 'verb' },
+        ],
+      },
+      {
+        id: 'jp-fo-s-05',
+        jp: 'これはいくらですか。',
+        reading: 'これはいくらですか。',
+        romaji: 'Kore wa ikura desu ka.',
+        meaning: 'How much is this?',
+        vi: 'Cái này bao nhiêu tiền?',
+        components: [
+          { text: 'これ', reading: 'これ', meaning: 'this', vi: 'cái này', type: 'subject' },
+          { text: 'は', reading: 'は', meaning: 'topic marker', vi: 'trợ từ chủ đề', type: 'particle' },
+          { text: 'いくら', reading: 'いくら', meaning: 'how much', vi: 'bao nhiêu tiền', type: 'other' },
+          { text: 'です', reading: 'です', meaning: 'is (polite)', vi: 'là (lịch sự)', type: 'verb' },
+          { text: 'か', reading: 'か', meaning: 'question particle', vi: 'trợ từ nghi vấn', type: 'particle' },
+        ],
+      },
+    ],
     basic: [
       {
         id: 'jp-fo-b-01',
@@ -500,6 +707,73 @@ export const JAPANESE_SENTENCES: JapaneseSentenceData = {
   },
 
   work: {
+    starter: [
+      {
+        id: 'jp-wo-s-01',
+        jp: '私は先生です。',
+        reading: 'わたしはせんせいです。',
+        romaji: 'Watashi wa sensei desu.',
+        meaning: 'I am a teacher.',
+        vi: 'Tôi là giáo viên.',
+        components: [
+          { text: '私', reading: 'わたし', meaning: 'I', vi: 'tôi', type: 'subject' },
+          { text: 'は', reading: 'は', meaning: 'topic marker', vi: 'trợ từ chủ đề', type: 'particle' },
+          { text: '先生', reading: 'せんせい', meaning: 'teacher', vi: 'giáo viên', type: 'object' },
+          { text: 'です', reading: 'です', meaning: 'is (polite)', vi: 'là (lịch sự)', type: 'verb' },
+        ],
+      },
+      {
+        id: 'jp-wo-s-02',
+        jp: '日本語を勉強します。',
+        reading: 'にほんごをべんきょうします。',
+        romaji: 'Nihongo wo benkyō shimasu.',
+        meaning: 'I study Japanese.',
+        vi: 'Tôi học tiếng Nhật.',
+        components: [
+          { text: '日本語', reading: 'にほんご', meaning: 'Japanese (language)', vi: 'tiếng Nhật', type: 'object' },
+          { text: 'を', reading: 'を', meaning: 'object marker', vi: 'trợ từ tân ngữ', type: 'particle' },
+          { text: '勉強します', reading: 'べんきょうします', meaning: 'study', vi: 'học', type: 'verb' },
+        ],
+      },
+      {
+        id: 'jp-wo-s-03',
+        jp: '学校に行きます。',
+        reading: 'がっこうにいきます。',
+        romaji: 'Gakkō ni ikimasu.',
+        meaning: 'I go to school.',
+        vi: 'Tôi đi học.',
+        components: [
+          { text: '学校', reading: 'がっこう', meaning: 'school', vi: 'trường học', type: 'place' },
+          { text: 'に', reading: 'に', meaning: 'to (direction)', vi: 'đến (chỉ hướng)', type: 'particle' },
+          { text: '行きます', reading: 'いきます', meaning: 'go', vi: 'đi', type: 'verb' },
+        ],
+      },
+      {
+        id: 'jp-wo-s-04',
+        jp: '分かりました。',
+        reading: 'わかりました。',
+        romaji: 'Wakarimashita.',
+        meaning: 'I understand.',
+        vi: 'Tôi hiểu rồi.',
+        components: [
+          { text: '分かりました', reading: 'わかりました', meaning: 'understood', vi: 'đã hiểu', type: 'verb' },
+        ],
+      },
+      {
+        id: 'jp-wo-s-05',
+        jp: '日本語が少し分かります。',
+        reading: 'にほんごがすこしわかります。',
+        romaji: 'Nihongo ga sukoshi wakarimasu.',
+        meaning: 'I understand a little Japanese.',
+        vi: 'Tôi hiểu một chút tiếng Nhật.',
+        components: [
+          { text: '日本語', reading: 'にほんご', meaning: 'Japanese (language)', vi: 'tiếng Nhật', type: 'object' },
+          { text: 'が', reading: 'が', meaning: 'subject marker', vi: 'trợ từ chủ ngữ', type: 'particle' },
+          { text: '少し', reading: 'すこし', meaning: 'a little', vi: 'một chút', type: 'adverb' },
+          { text: '分かります', reading: 'わかります', meaning: 'understand', vi: 'hiểu', type: 'verb' },
+        ],
+      },
+    ],
     basic: [
       {
         id: 'jp-wo-b-01',
@@ -655,6 +929,82 @@ export const JAPANESE_SENTENCES: JapaneseSentenceData = {
   },
 
   travel: {
+    starter: [
+      {
+        id: 'jp-tr-s-01',
+        jp: 'トイレはどこですか。',
+        reading: 'トイレはどこですか。',
+        romaji: 'Toire wa doko desu ka.',
+        meaning: 'Where is the toilet?',
+        vi: 'Nhà vệ sinh ở đâu?',
+        components: [
+          { text: 'トイレ', reading: 'トイレ', meaning: 'toilet', vi: 'nhà vệ sinh', type: 'subject' },
+          { text: 'は', reading: 'は', meaning: 'topic marker', vi: 'trợ từ chủ đề', type: 'particle' },
+          { text: 'どこ', reading: 'どこ', meaning: 'where', vi: 'ở đâu', type: 'place' },
+          { text: 'です', reading: 'です', meaning: 'is (polite)', vi: 'là (lịch sự)', type: 'verb' },
+          { text: 'か', reading: 'か', meaning: 'question particle', vi: 'trợ từ nghi vấn', type: 'particle' },
+        ],
+      },
+      {
+        id: 'jp-tr-s-02',
+        jp: '日本に行きたいです。',
+        reading: 'にほんにいきたいです。',
+        romaji: 'Nihon ni ikitai desu.',
+        meaning: 'I want to go to Japan.',
+        vi: 'Tôi muốn đi Nhật Bản.',
+        components: [
+          { text: '日本', reading: 'にほん', meaning: 'Japan', vi: 'Nhật Bản', type: 'place' },
+          { text: 'に', reading: 'に', meaning: 'to (direction)', vi: 'đến (chỉ hướng)', type: 'particle' },
+          { text: '行きたい', reading: 'いきたい', meaning: 'want to go', vi: 'muốn đi', type: 'verb' },
+          { text: 'です', reading: 'です', meaning: 'is (polite)', vi: 'là (lịch sự)', type: 'verb' },
+        ],
+      },
+      {
+        id: 'jp-tr-s-03',
+        jp: '駅はあそこです。',
+        reading: 'えきはあそこです。',
+        romaji: 'Eki wa asoko desu.',
+        meaning: 'The station is over there.',
+        vi: 'Nhà ga ở đằng kia.',
+        components: [
+          { text: '駅', reading: 'えき', meaning: 'station', vi: 'nhà ga', type: 'subject' },
+          { text: 'は', reading: 'は', meaning: 'topic marker', vi: 'trợ từ chủ đề', type: 'particle' },
+          { text: 'あそこ', reading: 'あそこ', meaning: 'over there', vi: 'đằng kia', type: 'place' },
+          { text: 'です', reading: 'です', meaning: 'is (polite)', vi: 'là (lịch sự)', type: 'verb' },
+        ],
+      },
+      {
+        id: 'jp-tr-s-04',
+        jp: 'これは何ですか。',
+        reading: 'これはなんですか。',
+        romaji: 'Kore wa nan desu ka.',
+        meaning: 'What is this?',
+        vi: 'Cái này là gì?',
+        components: [
+          { text: 'これ', reading: 'これ', meaning: 'this', vi: 'cái này', type: 'subject' },
+          { text: 'は', reading: 'は', meaning: 'topic marker', vi: 'trợ từ chủ đề', type: 'particle' },
+          { text: '何', reading: 'なん', meaning: 'what', vi: 'gì', type: 'other' },
+          { text: 'です', reading: 'です', meaning: 'is (polite)', vi: 'là (lịch sự)', type: 'verb' },
+          { text: 'か', reading: 'か', meaning: 'question particle', vi: 'trợ từ nghi vấn', type: 'particle' },
+        ],
+      },
+      {
+        id: 'jp-tr-s-05',
+        jp: 'すみません、駅はどこですか。',
+        reading: 'すみません、えきはどこですか。',
+        romaji: 'Sumimasen, eki wa doko desu ka.',
+        meaning: 'Excuse me, where is the station?',
+        vi: 'Xin lỗi, nhà ga ở đâu?',
+        components: [
+          { text: 'すみません', reading: 'すみません', meaning: 'excuse me', vi: 'xin lỗi', type: 'other' },
+          { text: '駅', reading: 'えき', meaning: 'station', vi: 'nhà ga', type: 'subject' },
+          { text: 'は', reading: 'は', meaning: 'topic marker', vi: 'trợ từ chủ đề', type: 'particle' },
+          { text: 'どこ', reading: 'どこ', meaning: 'where', vi: 'ở đâu', type: 'place' },
+          { text: 'です', reading: 'です', meaning: 'is (polite)', vi: 'là (lịch sự)', type: 'verb' },
+          { text: 'か', reading: 'か', meaning: 'question particle', vi: 'trợ từ nghi vấn', type: 'particle' },
+        ],
+      },
+    ],
     basic: [
       {
         id: 'jp-tr-b-01',
@@ -806,6 +1156,82 @@ export const JAPANESE_SENTENCES: JapaneseSentenceData = {
   },
 
   family: {
+    starter: [
+      {
+        id: 'jp-fa-s-01',
+        jp: 'これは私の父です。',
+        reading: 'これはわたしのちちです。',
+        romaji: 'Kore wa watashi no chichi desu.',
+        meaning: 'This is my father.',
+        vi: 'Đây là bố tôi.',
+        components: [
+          { text: 'これ', reading: 'これ', meaning: 'this', vi: 'đây', type: 'subject' },
+          { text: 'は', reading: 'は', meaning: 'topic marker', vi: 'trợ từ chủ đề', type: 'particle' },
+          { text: '私', reading: 'わたし', meaning: 'I', vi: 'tôi', type: 'other' },
+          { text: 'の', reading: 'の', meaning: "possessive ('s)", vi: 'của', type: 'particle' },
+          { text: '父', reading: 'ちち', meaning: '(my) father', vi: 'bố (tôi)', type: 'object' },
+          { text: 'です', reading: 'です', meaning: 'is (polite)', vi: 'là (lịch sự)', type: 'verb' },
+        ],
+      },
+      {
+        id: 'jp-fa-s-02',
+        jp: '母が好きです。',
+        reading: 'ははがすきです。',
+        romaji: 'Haha ga suki desu.',
+        meaning: 'I love my mother.',
+        vi: 'Tôi yêu mẹ.',
+        components: [
+          { text: '母', reading: 'はは', meaning: '(my) mother', vi: 'mẹ (tôi)', type: 'object' },
+          { text: 'が', reading: 'が', meaning: 'subject marker', vi: 'trợ từ chủ ngữ', type: 'particle' },
+          { text: '好き', reading: 'すき', meaning: 'like, love', vi: 'thích, yêu', type: 'adjective' },
+          { text: 'です', reading: 'です', meaning: 'is (polite)', vi: 'là (lịch sự)', type: 'verb' },
+        ],
+      },
+      {
+        id: 'jp-fa-s-03',
+        jp: '兄が一人います。',
+        reading: 'あにがひとりいます。',
+        romaji: 'Ani ga hitori imasu.',
+        meaning: 'I have one older brother.',
+        vi: 'Tôi có một anh trai.',
+        components: [
+          { text: '兄', reading: 'あに', meaning: '(my) older brother', vi: 'anh trai', type: 'subject' },
+          { text: 'が', reading: 'が', meaning: 'subject marker', vi: 'trợ từ chủ ngữ', type: 'particle' },
+          { text: '一人', reading: 'ひとり', meaning: 'one person', vi: 'một người', type: 'other' },
+          { text: 'います', reading: 'います', meaning: 'there is (people)', vi: 'có', type: 'verb' },
+        ],
+      },
+      {
+        id: 'jp-fa-s-04',
+        jp: '彼女は私の姉です。',
+        reading: 'かのじょはわたしのあねです。',
+        romaji: 'Kanojo wa watashi no ane desu.',
+        meaning: 'She is my older sister.',
+        vi: 'Cô ấy là chị gái tôi.',
+        components: [
+          { text: '彼女', reading: 'かのじょ', meaning: 'she', vi: 'cô ấy', type: 'subject' },
+          { text: 'は', reading: 'は', meaning: 'topic marker', vi: 'trợ từ chủ đề', type: 'particle' },
+          { text: '私', reading: 'わたし', meaning: 'I', vi: 'tôi', type: 'other' },
+          { text: 'の', reading: 'の', meaning: "possessive ('s)", vi: 'của', type: 'particle' },
+          { text: '姉', reading: 'あね', meaning: '(my) older sister', vi: 'chị gái', type: 'object' },
+          { text: 'です', reading: 'です', meaning: 'is (polite)', vi: 'là (lịch sự)', type: 'verb' },
+        ],
+      },
+      {
+        id: 'jp-fa-s-05',
+        jp: '私たちは友達です。',
+        reading: 'わたしたちはともだちです。',
+        romaji: 'Watashitachi wa tomodachi desu.',
+        meaning: 'We are friends.',
+        vi: 'Chúng tôi là bạn.',
+        components: [
+          { text: '私たち', reading: 'わたしたち', meaning: 'we', vi: 'chúng tôi', type: 'subject' },
+          { text: 'は', reading: 'は', meaning: 'topic marker', vi: 'trợ từ chủ đề', type: 'particle' },
+          { text: '友達', reading: 'ともだち', meaning: 'friend', vi: 'bạn bè', type: 'object' },
+          { text: 'です', reading: 'です', meaning: 'is (polite)', vi: 'là (lịch sự)', type: 'verb' },
+        ],
+      },
+    ],
     basic: [
       {
         id: 'jp-fa-b-01',
