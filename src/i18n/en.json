@@ -77,7 +77,12 @@
     "viewLearnedWords": "View learned words ({{count}})",
     "modalTitle": "Words you've learned — {{title}}",
     "searchPlaceholder": "Search words...",
-    "noSearchResults": "No matching words found"
+    "noSearchResults": "No matching words found",
+    "reviewPickerTitle": "Choose words to review",
+    "reviewAll": "Review all ({{count}})",
+    "reviewSelected": "Review selected ({{count}})",
+    "selectAll": "Select all",
+    "deselectAll": "Deselect all"
   },
   "wordLearn": {
     "levelOverview": "Level overview",
@@ -201,7 +206,12 @@
       "viewLearnedWords": "View learned words ({{count}})",
       "modalTitle": "Words you've learned — {{title}}",
       "searchPlaceholder": "Search words...",
-      "noSearchResults": "No matching words found"
+      "noSearchResults": "No matching words found",
+      "reviewPickerTitle": "Choose words to review",
+      "reviewAll": "Review all ({{count}})",
+      "reviewSelected": "Review selected ({{count}})",
+      "selectAll": "Select all",
+      "deselectAll": "Deselect all"
     },
     "wordLearn": {
       "levelOverview": "Level overview",
@@ -283,7 +293,12 @@
       "viewLearnedWords": "View learned words ({{count}})",
       "modalTitle": "Words you've learned — {{title}}",
       "searchPlaceholder": "Search words...",
-      "noSearchResults": "No matching words found"
+      "noSearchResults": "No matching words found",
+      "reviewPickerTitle": "Choose words to review",
+      "reviewAll": "Review all ({{count}})",
+      "reviewSelected": "Review selected ({{count}})",
+      "selectAll": "Select all",
+      "deselectAll": "Deselect all"
     },
     "wordLearn": {
       "levelOverview": "Level overview",

@@ -1,5 +1,5 @@
 import { useMemo, useState, type ReactNode } from 'react'
-import { Button, Empty, Input, Modal, Progress, Segmented } from 'antd'
+import { Button, Checkbox, Empty, Input, Modal, Progress, Segmented } from 'antd'
 import {
   ArrowRightOutlined,
   ReloadOutlined,
@@ -35,7 +35,7 @@ interface LevelOverviewProps<T> {
   batchSize: number
   onChangeBatchSize: (size: number) => void
   onContinue: () => void
-  onReview: () => void
+  onReview: (selectedKeys?: string[]) => void
   onBack: () => void
 }
 
@@ -61,6 +61,12 @@ export default function LevelOverview<T>({
   const [searchText, setSearchText] = useState('')
   const [visible, setVisible] = useState(PAGE)
 
+  // Review picker state
+  const [showReviewPicker, setShowReviewPicker] = useState(false)
+  const [reviewSearch, setReviewSearch] = useState('')
+  const [reviewVisible, setReviewVisible] = useState(PAGE)
+  const [selectedKeys, setSelectedKeys] = useState<Set<string>>(new Set())
+
   const learnedEntries = useMemo(() => {
     const set = new Set(learnedKeys)
     return pool.filter((w) => set.has(getKey(w)))
@@ -73,6 +79,52 @@ export default function LevelOverview<T>({
     const query = searchText.trim().toLowerCase()
     return query ? learnedEntries.filter((w) => matches(w, query)) : learnedEntries
   }, [learnedEntries, searchText, matches])
+
+  const reviewFiltered = useMemo(() => {
+    const query = reviewSearch.trim().toLowerCase()
+    return query ? learnedEntries.filter((w) => matches(w, query)) : learnedEntries
+  }, [learnedEntries, reviewSearch, matches])
+
+  const allVisibleSelected =
+    reviewFiltered.length > 0 && reviewFiltered.every((w) => selectedKeys.has(getKey(w)))
+
+  const toggleSelectAll = () => {
+    setSelectedKeys((prev) => {
+      const next = new Set(prev)
+      if (allVisibleSelected) {
+        reviewFiltered.forEach((w) => next.delete(getKey(w)))
+      } else {
+        reviewFiltered.forEach((w) => next.add(getKey(w)))
+      }
+      return next
+    })
+  }
+
+  const toggleWord = (key: string) => {
+    setSelectedKeys((prev) => {
+      const next = new Set(prev)
+      if (next.has(key)) next.delete(key)
+      else next.add(key)
+      return next
+    })
+  }
+
+  const handleOpenReviewPicker = () => {
+    setSelectedKeys(new Set())
+    setReviewSearch('')
+    setReviewVisible(PAGE)
+    setShowReviewPicker(true)
+  }
+
+  const handleReviewAll = () => {
+    setShowReviewPicker(false)
+    onReview()
+  }
+
+  const handleReviewSelected = () => {
+    setShowReviewPicker(false)
+    onReview(Array.from(selectedKeys))
+  }
 
   return (
     <div className="page">
@@ -121,7 +173,7 @@ export default function LevelOverview<T>({
           {hasProgress ? k('continueLearning') : k('startLearning')} <ArrowRightOutlined />
         </Button>
         <div className="level-actions-row">
-          <Button size="large" icon={<ReloadOutlined />} disabled={!hasProgress} onClick={onReview}>
+          <Button size="large" icon={<ReloadOutlined />} disabled={!hasProgress} onClick={handleOpenReviewPicker}>
             {k('reviewLearned')}
           </Button>
           <Button
@@ -135,6 +187,7 @@ export default function LevelOverview<T>({
         </div>
       </div>
 
+      {/* View learned words modal */}
       <Modal
         title={k('modalTitle', { title: level.title })}
         open={showLearned}
@@ -190,6 +243,94 @@ export default function LevelOverview<T>({
         {filtered.length > visible && (
           <Button block type="text" onClick={() => setVisible((v) => v + PAGE)} style={{ marginTop: 8 }}>
             {t('common.showMore', { count: filtered.length - visible })}
+          </Button>
+        )}
+      </Modal>
+
+      {/* Review picker modal */}
+      <Modal
+        title={k('reviewPickerTitle')}
+        open={showReviewPicker}
+        onCancel={() => setShowReviewPicker(false)}
+        footer={
+          <div style={{ display: 'flex', gap: 8 }}>
+            <Button
+              block
+              size="large"
+              disabled={selectedKeys.size === 0}
+              onClick={handleReviewSelected}
+            >
+              {k('reviewSelected', { count: selectedKeys.size })}
+            </Button>
+            <Button
+              block
+              type="primary"
+              size="large"
+              onClick={handleReviewAll}
+            >
+              {k('reviewAll', { count: learnedEntries.length })}
+            </Button>
+          </div>
+        }
+        styles={{ body: { maxHeight: '60vh', overflowY: 'auto' } }}
+      >
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8, margin: '8px 0 12px' }}>
+          <Input
+            allowClear
+            size="large"
+            prefix={<SearchOutlined style={{ color: COLORS.subtle }} />}
+            placeholder={k('searchPlaceholder')}
+            value={reviewSearch}
+            onChange={(e) => {
+              setReviewSearch(e.target.value)
+              setReviewVisible(PAGE)
+            }}
+            style={{ flex: 1 }}
+          />
+          <Button size="large" type="text" onClick={toggleSelectAll} style={{ whiteSpace: 'nowrap' }}>
+            {allVisibleSelected ? k('deselectAll') : k('selectAll')}
+          </Button>
+        </div>
+        {reviewFiltered.length === 0 ? (
+          <Empty description={k('noSearchResults')} />
+        ) : (
+          <div className="list" style={{ boxShadow: 'none' }}>
+            {reviewFiltered.slice(0, reviewVisible).map((word) => {
+              const d = describe(word)
+              const key = getKey(word)
+              return (
+                <div
+                  key={d.key}
+                  className="missed-row"
+                  style={{ alignItems: 'center', padding: '10px 12px', cursor: 'pointer' }}
+                  onClick={() => toggleWord(key)}
+                >
+                  <span style={{ display: 'flex', alignItems: 'center', gap: 8, minWidth: 0 }}>
+                    <Checkbox checked={selectedKeys.has(key)} onChange={() => toggleWord(key)} onClick={(e) => e.stopPropagation()} />
+                    <Button
+                      type="text"
+                      size="small"
+                      shape="circle"
+                      icon={<SoundOutlined />}
+                      onClick={(e) => { e.stopPropagation(); onSpeak(word) }}
+                      aria-label="Play"
+                    />
+                    <span style={{ minWidth: 0 }}>
+                      <strong lang={d.lang}>{d.primary}</strong>
+                      {d.reading && (
+                        <span style={{ marginLeft: 8, color: 'var(--muted)' }}>{d.reading}</span>
+                      )}
+                    </span>
+                  </span>
+                  <span style={{ color: 'var(--muted)', textAlign: 'right' }}>{d.meaning}</span>
+                </div>
+              )
+            })}
+          </div>
+        )}
+        {reviewFiltered.length > reviewVisible && (
+          <Button block type="text" onClick={() => setReviewVisible((v) => v + PAGE)} style={{ marginTop: 8 }}>
+            {t('common.showMore', { count: reviewFiltered.length - reviewVisible })}
           </Button>
         )}
       </Modal>

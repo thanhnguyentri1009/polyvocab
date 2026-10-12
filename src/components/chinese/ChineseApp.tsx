@@ -168,6 +168,15 @@ export default function ChineseApp({ syncCode }: ChineseAppProps) {
   }, [pool, learnedSet, batchSize]);
   const reviewWords = useMemo(() => pool.filter((w) => learnedSet.has(w.id)), [pool, learnedSet]);
 
+  const [reviewSelection, setReviewSelection] = useState<string[] | undefined>(undefined);
+  const reviewWordsFiltered = useMemo(() => {
+    if (reviewSelection) {
+      const sel = new Set(reviewSelection);
+      return reviewWords.filter((w) => sel.has(w.id));
+    }
+    return reviewWords;
+  }, [reviewWords, reviewSelection]);
+
   const updateProgress = (updater: (p: ChineseProgressState) => ChineseProgressState) => {
     setProgress((prev) => {
       const next = { ...updater(prev), updatedAt: Date.now() };
@@ -240,8 +249,9 @@ export default function ChineseApp({ syncCode }: ChineseAppProps) {
     persistSession({ level: levelKey, screen: "learn", wordIndex: 0 });
   };
 
-  const handleStartReview = () => {
+  const handleStartReview = (selectedKeys?: string[]) => {
     if (!levelKey) return;
+    setReviewSelection(selectedKeys);
     navigate(`/zh/vocabulary/${levelKey.toLowerCase()}/review`);
   };
 
@@ -317,7 +327,7 @@ export default function ChineseApp({ syncCode }: ChineseAppProps) {
         />
       )}
       {stage === "vocabReview" && level && (
-        <ChineseReview words={reviewWords} pool={pool} accent={level.accent} onBack={handleBackFromReview} />
+        <ChineseReview words={reviewWordsFiltered} pool={pool} accent={level.accent} onBack={handleBackFromReview} />
       )}
       {stage === "sentenceSelect" && (
         <SentenceCategorySelect

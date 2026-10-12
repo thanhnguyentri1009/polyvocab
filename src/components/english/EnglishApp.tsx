@@ -183,6 +183,15 @@ export default function EnglishApp({ syncCode }: EnglishAppProps) {
     [pool, learnedSet],
   );
 
+  const [reviewSelection, setReviewSelection] = useState<string[] | undefined>(undefined);
+  const reviewWordsFiltered = useMemo(() => {
+    if (reviewSelection) {
+      const sel = new Set(reviewSelection);
+      return reviewWords.filter((w) => sel.has(w.en));
+    }
+    return reviewWords;
+  }, [reviewWords, reviewSelection]);
+
   const updateProgress = (updater: (p: ProgressState) => ProgressState) => {
     setProgress((prev) => {
       const next = { ...updater(prev), updatedAt: Date.now() };
@@ -266,8 +275,9 @@ export default function EnglishApp({ syncCode }: EnglishAppProps) {
 
   // Review mode is a no-save practice loop: navigating in and out of it
   // never touches persisted progress or the resumable session.
-  const handleStartReview = () => {
+  const handleStartReview = (selectedKeys?: string[]) => {
     if (!topicKey || !levelKey) return;
+    setReviewSelection(selectedKeys);
     navigate(`/${topicKey}/${levelKey.toLowerCase()}/review`);
   };
 
@@ -357,7 +367,7 @@ export default function EnglishApp({ syncCode }: EnglishAppProps) {
         )}
         {stage === "review" && level && (
           <Review
-            words={reviewWords}
+            words={reviewWordsFiltered}
             pool={pool}
             accent={level.accent}
             onBack={handleBackFromReview}

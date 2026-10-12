@@ -77,7 +77,12 @@
     "viewLearnedWords": "Xem từ đã học ({{count}})",
     "modalTitle": "Từ bạn đã học — {{title}}",
     "searchPlaceholder": "Tìm từ...",
-    "noSearchResults": "Không tìm thấy từ nào phù hợp"
+    "noSearchResults": "Không tìm thấy từ nào phù hợp",
+    "reviewPickerTitle": "Chọn từ để ôn tập",
+    "reviewAll": "Ôn tất cả ({{count}})",
+    "reviewSelected": "Ôn từ đã chọn ({{count}})",
+    "selectAll": "Chọn tất cả",
+    "deselectAll": "Bỏ chọn tất cả"
   },
   "wordLearn": {
     "levelOverview": "Tổng quan cấp độ",
@@ -200,7 +205,12 @@
       "viewLearnedWords": "Xem từ đã học ({{count}})",
       "modalTitle": "Từ bạn đã học — {{title}}",
       "searchPlaceholder": "Tìm từ...",
-      "noSearchResults": "Không tìm thấy từ nào phù hợp"
+      "noSearchResults": "Không tìm thấy từ nào phù hợp",
+      "reviewPickerTitle": "Chọn từ để ôn tập",
+      "reviewAll": "Ôn tất cả ({{count}})",
+      "reviewSelected": "Ôn từ đã chọn ({{count}})",
+      "selectAll": "Chọn tất cả",
+      "deselectAll": "Bỏ chọn tất cả"
     },
     "wordLearn": {
       "levelOverview": "Tổng quan cấp độ",
@@ -282,7 +292,12 @@
       "viewLearnedWords": "Xem từ đã học ({{count}})",
       "modalTitle": "Từ bạn đã học — {{title}}",
       "searchPlaceholder": "Tìm từ...",
-      "noSearchResults": "Không tìm thấy từ nào phù hợp"
+      "noSearchResults": "Không tìm thấy từ nào phù hợp",
+      "reviewPickerTitle": "Chọn từ để ôn tập",
+      "reviewAll": "Ôn tất cả ({{count}})",
+      "reviewSelected": "Ôn từ đã chọn ({{count}})",
+      "selectAll": "Chọn tất cả",
+      "deselectAll": "Bỏ chọn tất cả"
     },
     "wordLearn": {
       "levelOverview": "Tổng quan cấp độ",

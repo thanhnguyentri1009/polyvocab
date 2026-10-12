@@ -11,7 +11,7 @@ interface ChineseLevelDetailProps {
   batchSize: number
   onChangeBatchSize: (size: number) => void
   onContinue: () => void
-  onReview: () => void
+  onReview: (selectedKeys?: string[]) => void
   onBack: () => void
 }
 

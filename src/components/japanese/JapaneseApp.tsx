@@ -169,6 +169,15 @@ export default function JapaneseApp({ syncCode }: JapaneseAppProps) {
   }, [pool, learnedSet, batchSize]);
   const reviewWords = useMemo(() => pool.filter((w) => learnedSet.has(w.id)), [pool, learnedSet]);
 
+  const [reviewSelection, setReviewSelection] = useState<string[] | undefined>(undefined);
+  const reviewWordsFiltered = useMemo(() => {
+    if (reviewSelection) {
+      const sel = new Set(reviewSelection);
+      return reviewWords.filter((w) => sel.has(w.id));
+    }
+    return reviewWords;
+  }, [reviewWords, reviewSelection]);
+
   const updateProgress = (updater: (p: JapaneseProgressState) => JapaneseProgressState) => {
     setProgress((prev) => {
       const next = { ...updater(prev), updatedAt: Date.now() };
@@ -241,8 +250,9 @@ export default function JapaneseApp({ syncCode }: JapaneseAppProps) {
     persistSession({ level: levelKey, screen: "learn", wordIndex: 0 });
   };
 
-  const handleStartReview = () => {
+  const handleStartReview = (selectedKeys?: string[]) => {
     if (!levelKey) return;
+    setReviewSelection(selectedKeys);
     navigate(`/jp/vocabulary/${levelKey.toLowerCase()}/review`);
   };
 
@@ -318,7 +328,7 @@ export default function JapaneseApp({ syncCode }: JapaneseAppProps) {
         />
       )}
       {stage === "vocabReview" && level && (
-        <JapaneseReview words={reviewWords} pool={pool} accent={level.accent} onBack={handleBackFromReview} />
+        <JapaneseReview words={reviewWordsFiltered} pool={pool} accent={level.accent} onBack={handleBackFromReview} />
       )}
       {stage === "sentenceSelect" && (
         <SentenceCategorySelect
