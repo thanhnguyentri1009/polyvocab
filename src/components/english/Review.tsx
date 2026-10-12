@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { useHotkeys } from '../../hooks/useHotkeys'
 import { KeyHint, QuizOption, QuizPrompt, QuizResult, SessionBar, optionState } from '../ui/Session'
 import type { VocabularyWord } from '../../data/english/vocabulary'
+import { englishSpeechText, speak } from '../../utils/speech'
 
 
 interface Question {
@@ -59,6 +60,7 @@ export default function Review({ words, pool, onBack }: ReviewProps) {
   const choose = (option: VocabularyWord) => {
     if (selected || flashWrong || wrongOptions.has(option.en)) return
     if (option.en === question.word.en) {
+      speak(englishSpeechText(option.en), 'en-US')
       setSelected(option)
       if (!erred) setScore((s) => s + 1)
     } else {

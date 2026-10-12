@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { useHotkeys } from '../../hooks/useHotkeys'
 import { KeyHint, QuizOption, QuizPrompt, QuizResult, SessionBar, optionState } from '../ui/Session'
 import type { JapaneseWord } from '../../data/japanese/types'
+import { japaneseSpeechText, speak } from '../../utils/speech'
 
 
 interface Question {
@@ -59,6 +60,7 @@ export default function JapaneseReview({ words, pool, onBack }: JapaneseReviewPr
   const choose = (option: JapaneseWord) => {
     if (selected || flashWrong || wrongOptions.has(option.id)) return
     if (option.id === question.word.id) {
+      speak(japaneseSpeechText(option), 'ja-JP')
       setSelected(option)
       if (!erred) setScore((s) => s + 1)
     } else {

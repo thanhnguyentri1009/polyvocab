@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { useHotkeys } from '../../hooks/useHotkeys'
 import { KeyHint, QuizOption, QuizPrompt, QuizResult, SessionBar, optionState } from '../ui/Session'
 import type { ChineseWord } from '../../data/chinese/types'
+import { chineseSpeechText, speak } from '../../utils/speech'
 
 
 interface Question {
@@ -59,6 +60,7 @@ export default function ChineseReview({ words, pool, onBack }: ChineseReviewProp
   const choose = (option: ChineseWord) => {
     if (selected || flashWrong || wrongOptions.has(option.id)) return
     if (option.id === question.word.id) {
+      speak(chineseSpeechText(option), 'zh-CN')
       setSelected(option)
       if (!erred) setScore((s) => s + 1)
     } else {
