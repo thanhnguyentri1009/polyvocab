@@ -1,21 +1,24 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { JapaneseSentence } from '../../data/japanese/sentences'
-import { COMPONENT_COLORS, COMPONENT_LABEL_EN, COMPONENT_LABEL_VI, DIFFICULTY_COLORS, SENTENCE_CATEGORIES, type SentenceCategory, type SentenceDifficulty } from '../../data/sentences/categories'
+import { COMPONENT_COLORS, COMPONENT_LABEL_EN, COMPONENT_LABEL_VI } from '../../data/sentences/components'
 import { speak } from '../../utils/speech'
 
 interface JapaneseSentenceLearnProps {
   sentences: JapaneseSentence[]
-  category: SentenceCategory
-  difficulty: SentenceDifficulty
+  levelTitle: string
+  part: number
   onBack: () => void
+  // Present when a following part exists; offered on the last sentence.
+  onNextPart?: () => void
 }
 
 export default function JapaneseSentenceLearn({
   sentences,
-  category,
-  difficulty,
+  levelTitle,
+  part,
   onBack,
+  onNextPart,
 }: JapaneseSentenceLearnProps) {
   const { t, i18n } = useTranslation()
   const isVi = i18n.language.startsWith('vi')
@@ -24,9 +27,8 @@ export default function JapaneseSentenceLearn({
   const [showRomaji, setShowRomaji] = useState(false)
 
   const sentence = sentences[index]
-  const catInfo = SENTENCE_CATEGORIES.find(c => c.key === category)
-  const diffColor = DIFFICULTY_COLORS[difficulty]
-  const diffLabel = t(`japanese.sentences.${difficulty}`)
+  const isLast = index === sentences.length - 1
+  const canAdvance = !isLast || !!onNextPart
 
   const handlePrev = () => {
     setIndex(i => Math.max(0, i - 1))
@@ -34,6 +36,10 @@ export default function JapaneseSentenceLearn({
   }
 
   const handleNext = () => {
+    if (isLast) {
+      onNextPart?.()
+      return
+    }
     setIndex(i => Math.min(sentences.length - 1, i + 1))
     setShowBreakdown(false)
   }
@@ -62,7 +68,7 @@ export default function JapaneseSentenceLearn({
             gap: 4,
           }}
         >
-          ← {t('japanese.sentences.backToCategories')}
+          ← {t('japanese.sentences.backToParts')}
         </button>
         <div style={{ flex: 1 }} />
         <span style={{ fontSize: 13, color: '#999', fontWeight: 500 }}>
@@ -70,24 +76,9 @@ export default function JapaneseSentenceLearn({
         </span>
       </div>
 
-      {/* Category + difficulty badge */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 16 }}>
-        <span style={{ fontSize: 18 }}>{catInfo?.icon}</span>
-        <span style={{ fontSize: 14, fontWeight: 600, color: '#555' }}>
-          {isVi ? catInfo?.labelVi : catInfo?.labelEn}
-        </span>
-        <span
-          style={{
-            fontSize: 11,
-            fontWeight: 700,
-            color: diffColor,
-            background: diffColor + '18',
-            borderRadius: 6,
-            padding: '2px 8px',
-          }}
-        >
-          {diffLabel}
-        </span>
+      {/* Level + part badge */}
+      <div style={{ fontSize: 14, fontWeight: 600, color: '#555', marginBottom: 16 }}>
+        {levelTitle} · {t('japanese.sentences.part', { n: part })}
       </div>
 
       {/* Sentence card */}
@@ -286,21 +277,21 @@ export default function JapaneseSentenceLearn({
         <button
           type="button"
           onClick={handleNext}
-          disabled={index === sentences.length - 1}
+          disabled={!canAdvance}
           style={{
             flex: 1,
             padding: '12px',
-            background: index === sentences.length - 1 ? '#f7f5f0' : '#2980b9',
-            border: index === sentences.length - 1 ? '1px solid #e8e6e0' : 'none',
+            background: !canAdvance ? '#f7f5f0' : '#2980b9',
+            border: !canAdvance ? '1px solid #e8e6e0' : 'none',
             borderRadius: 10,
-            cursor: index === sentences.length - 1 ? 'default' : 'pointer',
+            cursor: !canAdvance ? 'default' : 'pointer',
             fontSize: 14,
             fontWeight: 600,
-            color: index === sentences.length - 1 ? '#ccc' : '#fff',
+            color: !canAdvance ? '#ccc' : '#fff',
             fontFamily: 'inherit',
           }}
         >
-          {t('japanese.sentences.next')} →
+          {isLast && onNextPart ? t('japanese.sentences.nextPart') : t('japanese.sentences.next')} →
         </button>
       </div>
     </div>

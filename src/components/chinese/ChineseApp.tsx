@@ -10,12 +10,13 @@ import ChineseSentenceLearn from "./ChineseSentenceLearn";
 import PinyinSelect, { type PinyinSet } from "./PinyinSelect";
 import PinyinChart from "./PinyinChart";
 import LevelSelect from "../LevelSelect";
-import SentenceCategorySelect from "../sentences/SentenceCategorySelect";
+import SentenceLevelSelect from "../sentences/SentenceLevelSelect";
+import SentencePartSelect from "../sentences/SentencePartSelect";
 import { CHINESE_LEVELS } from "../../data/chinese/levels";
 import { CHINESE_VOCABULARY } from "../../data/chinese/vocabulary";
 import { CHINESE_SENTENCES } from "../../data/chinese/sentences";
 import type { HskLevel } from "../../data/chinese/types";
-import { SENTENCE_DIFFICULTIES, type SentenceCategory, type SentenceDifficulty } from "../../data/sentences/categories";
+import { partCount, sentencesInPart } from "../../data/sentences/parts";
 import {
   loadChineseProgress,
   pushChineseRemoteProgress,
@@ -36,7 +37,8 @@ type ChineseStage =
   | "vocabLearn"
   | "vocabQuiz"
   | "vocabReview"
-  | "sentenceSelect"
+  | "sentenceLevelSelect"
+  | "sentencePartSelect"
   | "sentenceLearn";
 
 interface ChineseAppProps {
@@ -63,12 +65,17 @@ export default function ChineseApp({ syncCode }: ChineseAppProps) {
   const levelKey = (matchedLevel?.key ?? null) as HskLevel | null;
   const subRoute = section === "vocabulary" ? segments[2] : undefined;
 
-  // Sentence routing: /zh/sentences/{category}/{difficulty}
-  const sentenceCategory = section === "sentences" ? (segments[1] as SentenceCategory | undefined) : undefined;
-  const sentenceDifficulty = section === "sentences" ? (segments[2] as SentenceDifficulty | undefined) : undefined;
-  const validSentenceCats = ["daily_life", "nature", "food", "work", "travel", "family"] as const;
-  const validCat = sentenceCategory && (validSentenceCats as readonly string[]).includes(sentenceCategory) ? sentenceCategory as SentenceCategory : null;
-  const validDiff = sentenceDifficulty && (SENTENCE_DIFFICULTIES as string[]).includes(sentenceDifficulty) ? sentenceDifficulty : null;
+  // Sentence routing: /zh/sentences/{level}/{part}
+  const rawSentenceLevel = section === "sentences" ? segments[1] : undefined;
+  const sentenceLevel = rawSentenceLevel
+    ? CHINESE_LEVELS.find((l) => l.key.toLowerCase() === rawSentenceLevel.toLowerCase())
+    : undefined;
+  const sentenceLevelKey = (sentenceLevel?.key ?? null) as HskLevel | null;
+  const levelSentences = sentenceLevelKey ? CHINESE_SENTENCES[sentenceLevelKey] : [];
+  const sentencePartCount = partCount(levelSentences.length);
+  const rawPart = section === "sentences" ? segments[2] : undefined;
+  const parsedPart = rawPart && /^\d+$/.test(rawPart) ? Number(rawPart) : 0;
+  const sentencePart = parsedPart >= 1 && parsedPart <= sentencePartCount ? parsedPart : null;
 
   const stage: ChineseStage =
     section === "beginner"
@@ -88,14 +95,16 @@ export default function ChineseApp({ syncCode }: ChineseAppProps) {
                   ? "vocabReview"
                   : "vocabLevelDetail"
           : section === "sentences"
-            ? validCat && validDiff
-              ? "sentenceLearn"
-              : "sentenceSelect"
+            ? !sentenceLevelKey
+              ? "sentenceLevelSelect"
+              : sentencePart
+                ? "sentenceLearn"
+                : "sentencePartSelect"
             : "beginner";
 
   const activeTab: "beginner" | "pinyin" | "vocabulary" | "sentences" =
     section === "vocabulary" ? "vocabulary" : section === "pinyin" ? "pinyin" : section === "sentences" ? "sentences" : "beginner";
-  const showTabBar = stage === "pinyinSelect" || stage === "vocabLevelSelect" || stage === "beginner" || stage === "sentenceSelect";
+  const showTabBar = stage === "pinyinSelect" || stage === "vocabLevelSelect" || stage === "beginner" || stage === "sentenceLevelSelect";
 
   // Redirect unknown routes back to a sane place within /zh.
   useEffect(() => {
@@ -103,13 +112,15 @@ export default function ChineseApp({ syncCode }: ChineseAppProps) {
       navigate("/zh/pinyin", { replace: true });
     } else if (section === "vocabulary" && segments[1] && !levelKey) {
       navigate("/zh/vocabulary", { replace: true });
-    } else if (section === "sentences" && segments[1] && (!validCat || (segments[2] && !validDiff))) {
+    } else if (section === "sentences" && segments[1] && !sentenceLevelKey) {
       navigate("/zh/sentences", { replace: true });
+    } else if (section === "sentences" && sentenceLevelKey && segments[2] && !sentencePart) {
+      navigate(`/zh/sentences/${sentenceLevelKey.toLowerCase()}`, { replace: true });
     } else if (section && section !== "pinyin" && section !== "vocabulary" && section !== "beginner" && section !== "sentences") {
       navigate("/zh", { replace: true });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [section, segments[1], pinyinSet, levelKey]);
+  }, [section, segments[1], segments[2], sentenceLevelKey, sentencePart, pinyinSet, levelKey]);
 
   const [progress, setProgress] = useState<ChineseProgressState>(() => loadChineseProgress(syncCode));
   const [batchSize, setBatchSize] = useState(() => progress.batchSize ?? DEFAULT_BATCH_SIZE);
@@ -329,18 +340,35 @@ export default function ChineseApp({ syncCode }: ChineseAppProps) {
       {stage === "vocabReview" && level && (
         <ChineseReview words={reviewWordsFiltered} pool={pool} accent={level.accent} onBack={handleBackFromReview} />
       )}
-      {stage === "sentenceSelect" && (
-        <SentenceCategorySelect
-          lang="zh"
-          onSelect={(cat, diff) => navigate(`/zh/sentences/${cat}/${diff}`)}
+      {stage === "sentenceLevelSelect" && (
+        <SentenceLevelSelect
+          ns="chinese"
+          levels={CHINESE_LEVELS}
+          sentences={CHINESE_SENTENCES}
+          onSelect={(key) => navigate(`/zh/sentences/${key.toLowerCase()}`)}
         />
       )}
-      {stage === "sentenceLearn" && validCat && validDiff && (
-        <ChineseSentenceLearn
-          sentences={CHINESE_SENTENCES[validCat][validDiff]}
-          category={validCat}
-          difficulty={validDiff}
+      {stage === "sentencePartSelect" && sentenceLevel && sentenceLevelKey && (
+        <SentencePartSelect
+          ns="chinese"
+          level={sentenceLevel}
+          total={levelSentences.length}
+          onSelect={(part) => navigate(`/zh/sentences/${sentenceLevelKey.toLowerCase()}/${part}`)}
           onBack={() => navigate("/zh/sentences")}
+        />
+      )}
+      {stage === "sentenceLearn" && sentenceLevel && sentenceLevelKey && sentencePart && (
+        <ChineseSentenceLearn
+          key={`${sentenceLevelKey}-${sentencePart}`}
+          sentences={sentencesInPart(levelSentences, sentencePart)}
+          levelTitle={sentenceLevel.title}
+          part={sentencePart}
+          onBack={() => navigate(`/zh/sentences/${sentenceLevelKey.toLowerCase()}`)}
+          onNextPart={
+            sentencePart < sentencePartCount
+              ? () => navigate(`/zh/sentences/${sentenceLevelKey.toLowerCase()}/${sentencePart + 1}`)
+              : undefined
+          }
         />
       )}
     </div>

@@ -158,14 +158,17 @@
     },
     "sentences": {
       "title": "Sentence Practice",
-      "subtitle": "Learn how to read and build sentences by topic",
-      "starter": "Starter",
-      "basic": "Basic",
-      "advanced": "Advanced",
-      "backToCategories": "Back",
+      "subtitle": "Learn to read and build sentences, level by level",
+      "allLevels": "All levels",
+      "levelCount": "{{count}} sentences · {{parts}} parts",
+      "part": "Part {{n}}",
+      "partLabel": "Part",
+      "partRange": "Sentences {{from}}–{{to}}",
+      "backToParts": "Parts",
       "breakdownTitle": "Sentence breakdown",
       "prev": "Previous",
-      "next": "Next"
+      "next": "Next",
+      "nextPart": "Next part"
     },
     "alphabetSelect": {
       "title": "Japanese Alphabet",
@@ -255,14 +258,17 @@
     },
     "sentences": {
       "title": "Sentence Practice",
-      "subtitle": "Learn how to read and build sentences by topic",
-      "starter": "Starter",
-      "basic": "Basic",
-      "advanced": "Advanced",
-      "backToCategories": "Back",
+      "subtitle": "Learn to read and build sentences, level by level",
+      "allLevels": "All levels",
+      "levelCount": "{{count}} sentences · {{parts}} parts",
+      "part": "Part {{n}}",
+      "partLabel": "Part",
+      "partRange": "Sentences {{from}}–{{to}}",
+      "backToParts": "Parts",
       "breakdownTitle": "Sentence breakdown",
       "prev": "Previous",
-      "next": "Next"
+      "next": "Next",
+      "nextPart": "Next part"
     },
     "pinyinSelect": {
       "title": "Pinyin System",

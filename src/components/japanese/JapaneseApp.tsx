@@ -10,13 +10,14 @@ import JapaneseReview from "./JapaneseReview";
 import JapaneseWordLearn from "./JapaneseWordLearn";
 import JapaneseSentenceLearn from "./JapaneseSentenceLearn";
 import LevelSelect from "../LevelSelect";
-import SentenceCategorySelect from "../sentences/SentenceCategorySelect";
+import SentenceLevelSelect from "../sentences/SentenceLevelSelect";
+import SentencePartSelect from "../sentences/SentencePartSelect";
 import type { AlphabetSet } from "../../data/japanese/alphabet";
 import { JAPANESE_LEVELS } from "../../data/japanese/levels";
 import { JAPANESE_VOCABULARY } from "../../data/japanese/vocabulary";
 import { JAPANESE_SENTENCES } from "../../data/japanese/sentences";
 import type { JlptLevel } from "../../data/japanese/types";
-import { SENTENCE_DIFFICULTIES, type SentenceCategory, type SentenceDifficulty } from "../../data/sentences/categories";
+import { partCount, sentencesInPart } from "../../data/sentences/parts";
 import {
   loadJapaneseProgress,
   pushJapaneseRemoteProgress,
@@ -37,7 +38,8 @@ type JapaneseStage =
   | "vocabLearn"
   | "vocabQuiz"
   | "vocabReview"
-  | "sentenceSelect"
+  | "sentenceLevelSelect"
+  | "sentencePartSelect"
   | "sentenceLearn";
 
 interface JapaneseAppProps {
@@ -64,12 +66,17 @@ export default function JapaneseApp({ syncCode }: JapaneseAppProps) {
   const levelKey = (matchedLevel?.key ?? null) as JlptLevel | null;
   const subRoute = section === "vocabulary" ? segments[2] : undefined;
 
-  // Sentence routing: /jp/sentences/{category}/{difficulty}
-  const sentenceCategory = section === "sentences" ? (segments[1] as SentenceCategory | undefined) : undefined;
-  const sentenceDifficulty = section === "sentences" ? (segments[2] as SentenceDifficulty | undefined) : undefined;
-  const validSentenceCats = ["daily_life", "nature", "food", "work", "travel", "family"] as const;
-  const validCat = sentenceCategory && (validSentenceCats as readonly string[]).includes(sentenceCategory) ? sentenceCategory as SentenceCategory : null;
-  const validDiff = sentenceDifficulty && (SENTENCE_DIFFICULTIES as string[]).includes(sentenceDifficulty) ? sentenceDifficulty : null;
+  // Sentence routing: /jp/sentences/{level}/{part}
+  const rawSentenceLevel = section === "sentences" ? segments[1] : undefined;
+  const sentenceLevel = rawSentenceLevel
+    ? JAPANESE_LEVELS.find((l) => l.key.toLowerCase() === rawSentenceLevel.toLowerCase())
+    : undefined;
+  const sentenceLevelKey = (sentenceLevel?.key ?? null) as JlptLevel | null;
+  const levelSentences = sentenceLevelKey ? JAPANESE_SENTENCES[sentenceLevelKey] : [];
+  const sentencePartCount = partCount(levelSentences.length);
+  const rawPart = section === "sentences" ? segments[2] : undefined;
+  const parsedPart = rawPart && /^\d+$/.test(rawPart) ? Number(rawPart) : 0;
+  const sentencePart = parsedPart >= 1 && parsedPart <= sentencePartCount ? parsedPart : null;
 
   const stage: JapaneseStage =
     section === "beginner"
@@ -89,14 +96,16 @@ export default function JapaneseApp({ syncCode }: JapaneseAppProps) {
                   ? "vocabReview"
                   : "vocabLevelDetail"
           : section === "sentences"
-            ? validCat && validDiff
-              ? "sentenceLearn"
-              : "sentenceSelect"
+            ? !sentenceLevelKey
+              ? "sentenceLevelSelect"
+              : sentencePart
+                ? "sentenceLearn"
+                : "sentencePartSelect"
             : "beginner";
 
   const activeTab: "beginner" | "alphabet" | "vocabulary" | "sentences" =
     section === "vocabulary" ? "vocabulary" : section === "alphabet" ? "alphabet" : section === "sentences" ? "sentences" : "beginner";
-  const showTabBar = stage === "beginner" || stage === "alphabetSelect" || stage === "vocabLevelSelect" || stage === "sentenceSelect";
+  const showTabBar = stage === "beginner" || stage === "alphabetSelect" || stage === "vocabLevelSelect" || stage === "sentenceLevelSelect";
 
   // Redirect unknown routes back to a sane place within /jp.
   useEffect(() => {
@@ -104,13 +113,15 @@ export default function JapaneseApp({ syncCode }: JapaneseAppProps) {
       navigate("/jp/alphabet", { replace: true });
     } else if (section === "vocabulary" && segments[1] && !levelKey) {
       navigate("/jp/vocabulary", { replace: true });
-    } else if (section === "sentences" && segments[1] && (!validCat || (segments[2] && !validDiff))) {
+    } else if (section === "sentences" && segments[1] && !sentenceLevelKey) {
       navigate("/jp/sentences", { replace: true });
+    } else if (section === "sentences" && sentenceLevelKey && segments[2] && !sentencePart) {
+      navigate(`/jp/sentences/${sentenceLevelKey.toLowerCase()}`, { replace: true });
     } else if (section && section !== "alphabet" && section !== "vocabulary" && section !== "beginner" && section !== "sentences") {
       navigate("/jp", { replace: true });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [section, segments[1], alphabetSet, levelKey]);
+  }, [section, segments[1], segments[2], sentenceLevelKey, sentencePart, alphabetSet, levelKey]);
 
   const [progress, setProgress] = useState<JapaneseProgressState>(() => loadJapaneseProgress(syncCode));
   const [batchSize, setBatchSize] = useState(() => progress.batchSize ?? DEFAULT_BATCH_SIZE);
@@ -330,18 +341,35 @@ export default function JapaneseApp({ syncCode }: JapaneseAppProps) {
       {stage === "vocabReview" && level && (
         <JapaneseReview words={reviewWordsFiltered} pool={pool} accent={level.accent} onBack={handleBackFromReview} />
       )}
-      {stage === "sentenceSelect" && (
-        <SentenceCategorySelect
-          lang="jp"
-          onSelect={(cat, diff) => navigate(`/jp/sentences/${cat}/${diff}`)}
+      {stage === "sentenceLevelSelect" && (
+        <SentenceLevelSelect
+          ns="japanese"
+          levels={JAPANESE_LEVELS}
+          sentences={JAPANESE_SENTENCES}
+          onSelect={(key) => navigate(`/jp/sentences/${key.toLowerCase()}`)}
         />
       )}
-      {stage === "sentenceLearn" && validCat && validDiff && (
-        <JapaneseSentenceLearn
-          sentences={JAPANESE_SENTENCES[validCat][validDiff]}
-          category={validCat}
-          difficulty={validDiff}
+      {stage === "sentencePartSelect" && sentenceLevel && sentenceLevelKey && (
+        <SentencePartSelect
+          ns="japanese"
+          level={sentenceLevel}
+          total={levelSentences.length}
+          onSelect={(part) => navigate(`/jp/sentences/${sentenceLevelKey.toLowerCase()}/${part}`)}
           onBack={() => navigate("/jp/sentences")}
+        />
+      )}
+      {stage === "sentenceLearn" && sentenceLevel && sentenceLevelKey && sentencePart && (
+        <JapaneseSentenceLearn
+          key={`${sentenceLevelKey}-${sentencePart}`}
+          sentences={sentencesInPart(levelSentences, sentencePart)}
+          levelTitle={sentenceLevel.title}
+          part={sentencePart}
+          onBack={() => navigate(`/jp/sentences/${sentenceLevelKey.toLowerCase()}`)}
+          onNextPart={
+            sentencePart < sentencePartCount
+              ? () => navigate(`/jp/sentences/${sentenceLevelKey.toLowerCase()}/${sentencePart + 1}`)
+              : undefined
+          }
         />
       )}
     </div>
