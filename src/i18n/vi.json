@@ -295,6 +295,7 @@
       "continueLearning": "Tiếp tục học",
       "startLearning": "Bắt đầu học",
       "reviewLearned": "Ôn tập từ đã học",
+      "listenPractice": "Luyện nghe",
       "viewLearnedWords": "Xem từ đã học ({{count}})",
       "modalTitle": "Từ bạn đã học — {{title}}",
       "searchPlaceholder": "Tìm từ...",
@@ -304,6 +305,17 @@
       "reviewSelected": "Ôn từ đã chọn ({{count}})",
       "selectAll": "Chọn tất cả",
       "deselectAll": "Bỏ chọn tất cả"
+    },
+    "listenQuiz": {
+      "prompt": "Nghe và chọn nghĩa đúng",
+      "replay": "Nghe lại",
+      "replayHint": "nghe lại",
+      "scored": "Bạn đạt {{score}}/{{total}} điểm",
+      "perfect": "Tuyệt vời! Bạn đã hiểu hết mọi từ.",
+      "tryAgain": "Nghe lại những từ bạn còn sai.",
+      "again": "Luyện lại",
+      "back": "Tổng quan cấp độ",
+      "missed": "Từ bạn đã sai ({{count}})"
     },
     "wordLearn": {
       "levelOverview": "Tổng quan cấp độ",

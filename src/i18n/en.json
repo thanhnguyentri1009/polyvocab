@@ -296,6 +296,7 @@
       "continueLearning": "Continue learning",
       "startLearning": "Start learning",
       "reviewLearned": "Review learned words",
+      "listenPractice": "Listening practice",
       "viewLearnedWords": "View learned words ({{count}})",
       "modalTitle": "Words you've learned — {{title}}",
       "searchPlaceholder": "Search words...",
@@ -305,6 +306,17 @@
       "reviewSelected": "Review selected ({{count}})",
       "selectAll": "Select all",
       "deselectAll": "Deselect all"
+    },
+    "listenQuiz": {
+      "prompt": "Listen and choose the correct meaning",
+      "replay": "Replay audio",
+      "replayHint": "replay",
+      "scored": "You scored {{score}}/{{total}}",
+      "perfect": "Perfect! You understood every word.",
+      "tryAgain": "Listen again to the ones you missed.",
+      "again": "Practice again",
+      "back": "Level overview",
+      "missed": "Words you missed ({{count}})"
     },
     "wordLearn": {
       "levelOverview": "Level overview",

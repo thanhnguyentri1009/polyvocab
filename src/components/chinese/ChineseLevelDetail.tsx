@@ -12,6 +12,7 @@ interface ChineseLevelDetailProps {
   onChangeBatchSize: (size: number) => void
   onContinue: () => void
   onReview: (selectedKeys?: string[]) => void
+  onListen: () => void
   onBack: () => void
 }
 
@@ -23,7 +24,7 @@ const matches = (w: ChineseWord, q: string) =>
   w.vi.toLowerCase().includes(q)
 const onSpeak = (w: ChineseWord) => speak(chineseSpeechText(w), 'zh-CN')
 
-export default function ChineseLevelDetail({ level, pool, learnedWords, ...rest }: ChineseLevelDetailProps) {
+export default function ChineseLevelDetail({ level, pool, learnedWords, onListen, ...rest }: ChineseLevelDetailProps) {
   const { i18n } = useTranslation()
   const isVietnamese = i18n.language.startsWith('vi')
   return (
@@ -34,6 +35,7 @@ export default function ChineseLevelDetail({ level, pool, learnedWords, ...rest 
       getKey={getKey}
       matches={matches}
       onSpeak={onSpeak}
+      onListen={onListen}
       describe={(w) => ({
         key: w.id,
         primary: w.zh,

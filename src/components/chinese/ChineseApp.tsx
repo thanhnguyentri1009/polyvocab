@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { useLocation, useNavigate } from "react-router-dom";
 import ChineseBeginnerGuide from "./ChineseBeginnerGuide";
 import ChineseLevelDetail from "./ChineseLevelDetail";
+import ChineseListenQuiz from "./ChineseListenQuiz";
 import ChineseQuiz from "./ChineseQuiz";
 import ChineseReview from "./ChineseReview";
 import ChineseWordLearn from "./ChineseWordLearn";
@@ -37,6 +38,7 @@ type ChineseStage =
   | "vocabLearn"
   | "vocabQuiz"
   | "vocabReview"
+  | "vocabListen"
   | "sentenceLevelSelect"
   | "sentencePartSelect"
   | "sentenceLearn";
@@ -93,7 +95,9 @@ export default function ChineseApp({ syncCode }: ChineseAppProps) {
                 ? "vocabLearn"
                 : subRoute === "review"
                   ? "vocabReview"
-                  : "vocabLevelDetail"
+                  : subRoute === "listen"
+                    ? "vocabListen"
+                    : "vocabLevelDetail"
           : section === "sentences"
             ? !sentenceLevelKey
               ? "sentenceLevelSelect"
@@ -271,6 +275,16 @@ export default function ChineseApp({ syncCode }: ChineseAppProps) {
     navigate(`/zh/vocabulary/${levelKey.toLowerCase()}`);
   };
 
+  const handleStartListen = () => {
+    if (!levelKey) return;
+    navigate(`/zh/vocabulary/${levelKey.toLowerCase()}/listen`);
+  };
+
+  const handleBackFromListen = () => {
+    if (!levelKey) return;
+    navigate(`/zh/vocabulary/${levelKey.toLowerCase()}`);
+  };
+
   return (
     <>
     <div>
@@ -314,6 +328,7 @@ export default function ChineseApp({ syncCode }: ChineseAppProps) {
           onChangeBatchSize={handleChangeBatchSize}
           onContinue={handleContinueLearning}
           onReview={handleStartReview}
+          onListen={handleStartListen}
           onBack={handleBackToLevels}
         />
       )}
@@ -339,6 +354,9 @@ export default function ChineseApp({ syncCode }: ChineseAppProps) {
       )}
       {stage === "vocabReview" && level && (
         <ChineseReview words={reviewWordsFiltered} pool={pool} accent={level.accent} onBack={handleBackFromReview} />
+      )}
+      {stage === "vocabListen" && level && (
+        <ChineseListenQuiz words={reviewWords} pool={pool} accent={level.accent} onBack={handleBackFromListen} />
       )}
       {stage === "sentenceLevelSelect" && (
         <SentenceLevelSelect

@@ -2,6 +2,7 @@ import { useMemo, useState, type ReactNode } from 'react'
 import { Button, Checkbox, Empty, Input, Modal, Progress, Segmented } from 'antd'
 import {
   ArrowRightOutlined,
+  AudioOutlined,
   ReloadOutlined,
   SearchOutlined,
   SoundOutlined,
@@ -30,6 +31,7 @@ interface LevelOverviewProps<T> {
   matches: (word: T, query: string) => boolean
   describe: (word: T) => OverviewWord
   onSpeak: (word: T) => void
+  onListen?: () => void
   // Prefix for the track's translation keys: '' (English), 'japanese.', 'chinese.'.
   i18nPrefix: string
   batchSize: number
@@ -47,6 +49,7 @@ export default function LevelOverview<T>({
   matches,
   describe,
   onSpeak,
+  onListen,
   i18nPrefix,
   batchSize,
   onChangeBatchSize,
@@ -176,6 +179,11 @@ export default function LevelOverview<T>({
           <Button size="large" icon={<ReloadOutlined />} disabled={!hasProgress} onClick={handleOpenReviewPicker}>
             {k('reviewLearned')}
           </Button>
+          {onListen && (
+            <Button size="large" icon={<AudioOutlined />} disabled={!hasProgress} onClick={onListen}>
+              {k('listenPractice')}
+            </Button>
+          )}
           <Button
             size="large"
             icon={<UnorderedListOutlined />}
